@@ -11,4 +11,4 @@ spring:
 server:
   port: 17888
 xxx:
-  yyy: zhangsan
+  yyy: zhan
