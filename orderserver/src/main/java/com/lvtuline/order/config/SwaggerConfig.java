@@ -20,7 +20,7 @@ public class SwaggerConfig {
                 .apiInfo(apiInfo())
                 .select()
                 //  加了api注解Controller
-                .apis(RequestHandlerSelectors.basePackage("com.lvtuine.order.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.lvtuline.order.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
