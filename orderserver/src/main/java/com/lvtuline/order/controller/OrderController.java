@@ -1,13 +1,11 @@
 package com.lvtuline.order.controller;
 
-import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.lvtuline.common.feign.StockFeignClients;
+import io.seata.spring.annotation.GlobalTransactional;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,6 +35,7 @@ public class OrderController {
             @ApiImplicitParam(name = "requestId", dataType = "string", required = true)
     })
     @PostMapping("createOrder")
+    @GlobalTransactional
     public void createOrder() {
         //TODO 可调用三方支付创建订单，订单创建成功，根据商品去查询库存，如果库存足够则减库存
         // 如果库存不够 回滚下单业务
