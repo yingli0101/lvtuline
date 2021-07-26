@@ -1,7 +1,7 @@
 package com.lvtuline.order.controller;
 
 import com.lvtuline.common.feign.StockFeignClients;
-import io.seata.spring.annotation.GlobalTransactional;
+import com.lvtuline.order.produce.OrderMsgProduce;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -28,6 +28,9 @@ public class OrderController {
     @Resource
     StockFeignClients stockFeignClients;
 
+    @Resource
+    OrderMsgProduce orderMsgProduce;
+
 
     @ApiOperation(value = "下单接口")
     @ApiImplicitParams({
@@ -35,12 +38,13 @@ public class OrderController {
             @ApiImplicitParam(name = "requestId", dataType = "string", required = true)
     })
     @PostMapping("createOrder")
-    @GlobalTransactional
+    //@GlobalTransactional
     public void createOrder() {
         //TODO 可调用三方支付创建订单，订单创建成功，根据商品去查询库存，如果库存足够则减库存
         // 如果库存不够 回滚下单业务
         System.out.println("下单");
-        stockFeignClients.delStock(1);
+        orderMsgProduce.sendMsg("下单成功,发给库存系统减库存！");
+        //stockFeignClients.delStock(1);
     }
 
 
